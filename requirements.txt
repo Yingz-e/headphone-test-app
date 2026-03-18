@@ -1,0 +1,7 @@
+pyinstaller
+numpy
+scipy
+matplotlib
+sounddevice
+PyQt6
+fpdf

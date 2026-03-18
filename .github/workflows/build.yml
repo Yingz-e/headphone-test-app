@@ -1,0 +1,65 @@
+name: Build Cross-Platform Apps
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  build-mac:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Build macOS App
+      run: |
+        python build_app.py
+        
+    - name: Create DMG or Zip
+      run: |
+        cd dist
+        # Zip the .app bundle to preserve permissions/structure
+        zip -r HeadphoneTestApp_macOS.zip HeadphoneTestApp.app
+        
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: MacOS-App
+        path: dist/HeadphoneTestApp_macOS.zip
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Build Windows Exe
+      run: |
+        python build_app.py
+        
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Windows-App
+        path: dist/HeadphoneTestApp.exe
