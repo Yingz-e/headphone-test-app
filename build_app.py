@@ -22,7 +22,11 @@ def build():
         '--windowed',                  # No console window (GUI only)
         '--clean',                     # Clean cache
         '--paths=.',                   # Add current directory to path
-        # '--add-data=src;src',        # (Optional) Explicitly add src if analysis fails (Windows format)
+        '--hidden-import=PyQt6',
+        '--hidden-import=sounddevice',
+        '--hidden-import=matplotlib',
+        '--hidden-import=numpy',
+        '--hidden-import=scipy',
     ]
     
     # OS specific adjustments
