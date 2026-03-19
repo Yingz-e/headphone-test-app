@@ -46,6 +46,13 @@ def build():
         PyInstaller.__main__.run(options)
         print("\nBuild completed successfully!")
         print(f"Executable is located in the 'dist' folder.")
+        # Debugging step: print what's in dist
+        if os.path.exists('dist'):
+            print("Contents of dist folder:")
+            for item in os.listdir('dist'):
+                print(f" - {item}")
+        else:
+            print("ERROR: dist folder was not created!")
     except Exception as e:
         print(f"\nBuild failed: {e}")
 

@@ -27,6 +27,13 @@ jobs:
       run: |
         python build_app.py
         
+    - name: Check build logs and output
+      run: |
+        echo "Listing root directory:"
+        ls -la
+        echo "Listing build directory (if exists):"
+        ls -la build/ || true
+        
     - name: Create DMG or Zip
       run: |
         echo "Listing dist directory contents:"
