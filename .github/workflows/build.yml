@@ -30,8 +30,9 @@ jobs:
     - name: Create DMG or Zip
       run: |
         cd dist
-        # Zip the .app bundle to preserve permissions/structure
-        zip -r HeadphoneTestApp_macOS.zip HeadphoneTestApp.app
+        # PyInstaller on Mac creates a UNIX executable or an .app bundle. 
+        # By default --windowed creates an .app bundle, but let's zip everything in dist just in case
+        zip -r HeadphoneTestApp_macOS.zip HeadphoneTestApp.app || zip -r HeadphoneTestApp_macOS.zip HeadphoneTestApp
         
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
