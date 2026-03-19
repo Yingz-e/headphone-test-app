@@ -39,7 +39,8 @@ def build():
         print("Detected macOS system.")
         # On Mac, add-data separator is :
         # options.append('--add-data=src:src')
-        options.append('--target-architecture=universal2') # Support M1/Intel
+        # Removing universal2 target as it might cause issues on pure ARM runners if not properly configured
+        # options.append('--target-architecture=universal2') 
     elif system == 'Linux':
         print("Detected Linux system.")
         

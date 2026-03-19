@@ -31,7 +31,9 @@ jobs:
         
     - name: Build macOS App
       run: |
-        python build_app.py
+        # PyInstaller sometimes needs to be called directly instead of through python script
+        # if the script fails silently. Let's try both.
+        python build_app.py || pyinstaller --name=HeadphoneTestApp --onefile --windowed --clean --paths=. --hidden-import=PyQt6 --hidden-import=sounddevice --hidden-import=matplotlib --hidden-import=numpy --hidden-import=scipy run_gui.py
         
     - name: Check build logs and output
       run: |
